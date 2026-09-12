@@ -26,8 +26,8 @@ export const PackageCard: React.FC<PackageCardProps> = ({
 
   return (
     <div
-      className={`bg-white rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-300 border ${
-        isFeatured ? 'border-gold ring-2 ring-gold/30 lg:-translate-y-2' : 'border-cream-border'
+      className={`bg-white rounded-2xl md:rounded-3xl p-6 sm:p-7 flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-300 border hover:-translate-y-1 ${
+        isFeatured ? 'border-gold ring-2 ring-gold/30 ' : 'border-cream-border'
       }`}
     >
       <div>
@@ -105,8 +105,8 @@ export const PackageCard: React.FC<PackageCardProps> = ({
         <div className="flex items-baseline justify-between mb-4">
           <span className="text-xs text-[#5A635E]">{t('packages.fromPrice')}</span>
           <div className="text-right">
-            <span className="font-serif text-2xl font-bold text-emerald-deep">
-              {packageItem.price.toLocaleString()} {packageItem.currency}
+            <span className="text-2xl font-bold tracking-tight font-mono tabular-nums text-emerald-deep">
+              {packageItem.price.toLocaleString()}{packageItem.currency}
             </span>
             <span className="text-xs text-[#5A635E] ml-1">{t('packages.perPerson')}</span>
           </div>

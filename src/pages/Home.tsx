@@ -75,23 +75,12 @@ export const Home: React.FC = () => {
           }}
         >
           {/* Subtle multi-layer scrim */}
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-dark/95 via-emerald-dark/85 to-emerald-dark/55 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark via-transparent to-emerald-dark/60" />
+          <div className="absolute inset-0 bg-linear-to-r from-emerald-dark/95 via-emerald-dark/85 to-emerald-dark/55 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-linear-to-t from-emerald-dark via-transparent to-emerald-dark/60" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[520px]">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-130">
           <div className="max-w-3xl space-y-6">
-            {/* Accreditation Badges */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/20 backdrop-blur-md text-[#F7EED2] text-xs font-semibold uppercase tracking-wider border border-gold/40">
-                <CheckCircle2 className="w-3.5 h-3.5 text-gold" />
-                {t('hero.badgeLicense')}
-              </span>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-medium border border-white/20">
-                <Users className="w-3.5 h-3.5 text-[#E8C868]" />
-                {t('hero.badgeGuide')}
-              </span>
-            </div>
 
             {/* Main Headline */}
             <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.15]">
