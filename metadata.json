@@ -1,0 +1,6 @@
+{
+  "name": "OmraPlan",
+  "description": "Agence de voyages pour pèlerinages Hajj & Omra d'excellence avec devis direct WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
