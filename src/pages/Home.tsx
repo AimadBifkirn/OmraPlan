@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from '../context/LanguageContext';
 import { packagesData, PackageItem } from '../data/packages';
@@ -25,20 +25,15 @@ import {
 
 export const Home: React.FC = () => {
   const { t, isRtl } = useTranslation();
+  const quoteSectionRef = useRef<HTMLDivElement>(null);
 
   const handleSelectPackageForQuote = (pkg: PackageItem) => {
-    const el = document.getElementById('quote-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    quoteSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const scrollToQuote = (e: React.MouseEvent) => {
     e.preventDefault();
-    const el = document.getElementById('quote-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    quoteSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const stats = [
@@ -71,7 +66,7 @@ export const Home: React.FC = () => {
   return (
     <div className="flex flex-col w-full">
       {/* ================= HERO SECTION ================= */}
-      <section className="relative w-full overflow-hidden bg-[#082D1B] text-white pt-24 pb-20 md:pt-36 md:pb-28">
+      <section className="relative w-full overflow-hidden bg-emerald-dark text-white pt-24 pb-20 md:pt-36 md:pb-28">
         {/* Full-width remote image background of Mecca / Medina with deep emerald & gold gradient overlay */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 scale-105"
@@ -80,16 +75,16 @@ export const Home: React.FC = () => {
           }}
         >
           {/* Subtle multi-layer scrim */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#082D1B]/95 via-[#082D1B]/85 to-[#082D1B]/55 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#082D1B] via-transparent to-[#082D1B]/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-dark/95 via-emerald-dark/85 to-emerald-dark/55 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-dark via-transparent to-emerald-dark/60" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center min-h-[520px]">
           <div className="max-w-3xl space-y-6">
             {/* Accreditation Badges */}
             <div className="flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C9A227]/20 backdrop-blur-md text-[#F7EED2] text-xs font-semibold uppercase tracking-wider border border-[#C9A227]/40">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#C9A227]" />
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold/20 backdrop-blur-md text-[#F7EED2] text-xs font-semibold uppercase tracking-wider border border-gold/40">
+                <CheckCircle2 className="w-3.5 h-3.5 text-gold" />
                 {t('hero.badgeLicense')}
               </span>
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-white text-xs font-medium border border-white/20">
@@ -113,7 +108,7 @@ export const Home: React.FC = () => {
               <a
                 href="#quote-section"
                 onClick={scrollToQuote}
-                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-[#C9A227] hover:bg-[#B48F1E] text-[#082D1B] font-bold text-sm sm:text-base shadow-xl transition-all transform active:scale-98"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gold hover:bg-gold-hover text-emerald-dark font-bold text-sm sm:text-base shadow-xl transition-all transform active:scale-98"
               >
                 <MessageCircle className="w-5 h-5 fill-current" />
                 <span>{t('hero.ctaWhatsApp')}</span>
@@ -131,15 +126,15 @@ export const Home: React.FC = () => {
             {/* Live Trust Bar */}
             <div className="pt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[#EAF4EE] border-t border-white/15">
               <div className="flex items-center gap-2">
-                <Building className="w-4 h-4 text-[#C9A227]" />
+                <Building className="w-4 h-4 text-gold" />
                 <span>{t('hero.feature1')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <Train className="w-4 h-4 text-[#C9A227]" />
+                <Train className="w-4 h-4 text-gold" />
                 <span>{t('hero.feature2')}</span>
               </div>
               <div className="flex items-center gap-2">
-                <HeartPulse className="w-4 h-4 text-[#C9A227]" />
+                <HeartPulse className="w-4 h-4 text-gold" />
                 <span>{t('hero.feature3')}</span>
               </div>
             </div>
@@ -150,9 +145,9 @@ export const Home: React.FC = () => {
       {/* ================= STAT HIGHLIGHTS ================= */}
       <section className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          {stats.map((stat, idx) => (
+          {stats.map((stat) => (
             <StatBlock
-              key={idx}
+              key={stat.title}
               value={stat.value}
               title={stat.title}
               description={stat.description}
@@ -166,10 +161,10 @@ export const Home: React.FC = () => {
       <section id="packages-section" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <span className="text-xs uppercase tracking-widest text-[#C9A227] font-bold">
+            <span className="text-xs uppercase tracking-widest text-gold font-bold">
               {t('packages.tagline')}
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F5132] mt-1">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-emerald-deep mt-1">
               {t('packages.title')}
             </h2>
           </div>
@@ -192,7 +187,7 @@ export const Home: React.FC = () => {
         <div className="mt-12 text-center">
           <Link
             to="/packages"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FAF7F2] hover:bg-[#EAF4EE] text-[#0F5132] font-semibold text-sm border border-[#0F5132]/30 shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cream hover:bg-[#EAF4EE] text-emerald-deep font-semibold text-sm border border-emerald-deep/30 shadow-xs transition-colors"
           >
             <span>{t('packages.filterAll')}</span>
             {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
@@ -201,14 +196,14 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ================= HOTELS PREVIEW ================= */}
-      <section className="w-full bg-[#F3ECE1] py-20 border-y border-[#E8E0D2]">
+      <section className="w-full bg-cream-subtle py-20 border-y border-cream-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
             <div>
-              <span className="text-xs uppercase tracking-widest text-[#C9A227] font-bold">
+              <span className="text-xs uppercase tracking-widest text-gold font-bold">
                 {t('hotels.tagline')}
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F5132] mt-1">
+              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-emerald-deep mt-1">
                 {t('hotels.title')}
               </h2>
             </div>
@@ -226,7 +221,7 @@ export const Home: React.FC = () => {
           <div className="mt-10 text-center">
             <Link
               to="/hotels"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-[#0F5132] hover:text-white text-[#0F5132] font-semibold text-sm border border-[#E8E0D2] shadow-sm transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-emerald-deep hover:text-white text-emerald-deep font-semibold text-sm border border-cream-border shadow-sm transition-all"
             >
               <span>{t('hotels.allCities')}</span>
               {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
@@ -238,10 +233,10 @@ export const Home: React.FC = () => {
       {/* ================= TESTIMONIALS ================= */}
       <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs uppercase tracking-widest text-[#C9A227] font-bold">
+          <span className="text-xs uppercase tracking-widest text-gold font-bold">
             {t('testimonials.tagline')}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#0F5132] mt-1">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-emerald-deep mt-1">
             {t('testimonials.title')}
           </h2>
           <p className="text-sm sm:text-base text-[#5A635E] mt-2">
@@ -257,7 +252,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ================= WHATSAPP QUOTE REQUEST SECTION ================= */}
-      <section id="quote-section" className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <section ref={quoteSectionRef} id="quote-section" className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <WhatsAppForm />
       </section>
     </div>

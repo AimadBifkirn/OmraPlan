@@ -30,8 +30,8 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className = 
             title={opt.name}
             className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer ${
               isActive
-                ? 'bg-[#0F5132] text-white shadow-xs font-bold'
-                : 'text-[#5A635E] hover:text-[#0F5132] hover:bg-[#E2D9C8]/60'
+                ? 'bg-emerald-deep text-white shadow-xs font-bold'
+                : 'text-[#5A635E] hover:text-emerald-deep hover:bg-[#E2D9C8]/60'
             }`}
           >
             {opt.label}

@@ -4,6 +4,7 @@ import en from '../i18n/en.json';
 import ar from '../i18n/ar.json';
 
 export type Language = 'fr' | 'en' | 'ar';
+type TranslationSchema = typeof fr;
 
 interface LanguageContextType {
   language: Language;
@@ -13,7 +14,7 @@ interface LanguageContextType {
   dir: 'ltr' | 'rtl';
 }
 
-const translations: Record<Language, any> = {
+const translations: Record<Language, TranslationSchema> = {
   fr,
   en,
   ar,
@@ -22,7 +23,7 @@ const translations: Record<Language, any> = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
+  const [language, setLanguage] = useState<Language>(() => {
     try {
       const saved = localStorage.getItem('omraplan_lang');
       if (saved === 'fr' || saved === 'en' || saved === 'ar') {
@@ -46,10 +47,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       // Ignore
     }
   }, [language, dir]);
-
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-  };
 
   const t = (path: string): string => {
     const keys = path.split('.');

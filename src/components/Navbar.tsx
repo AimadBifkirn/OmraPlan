@@ -35,8 +35,8 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#FAF7F2]/95 backdrop-blur-md shadow-md border-b border-[#E8E0D2]'
-          : 'bg-[#FAF7F2]/90 backdrop-blur-sm border-b border-[#E8E0D2]/60'
+          ? 'bg-cream/95 backdrop-blur-md shadow-md border-b border-cream-border'
+          : 'bg-cream/90 backdrop-blur-sm border-b border-cream-border/60'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,8 +54,8 @@ export const Navbar: React.FC = () => {
                 className={({ isActive }) =>
                   `px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-[#0F5132] font-bold bg-[#EAF4EE]'
-                      : 'text-[#444D47] hover:text-[#0F5132] hover:bg-[#F2ECE1]'
+                      ? 'text-emerald-deep font-bold bg-[#EAF4EE]'
+                      : 'text-[#444D47] hover:text-emerald-deep hover:bg-[#F2ECE1]'
                   }`
                 }
               >
@@ -70,9 +70,9 @@ export const Navbar: React.FC = () => {
 
             <NavLink
               to="/contact"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#0F5132] text-white text-sm font-semibold shadow-sm hover:bg-[#0C4229] transition-all transform active:scale-98 border border-[#0F5132]"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-deep text-white text-sm font-semibold shadow-sm hover:bg-[#0C4229] transition-all transform active:scale-98 border border-emerald-deep"
             >
-              <PhoneCall className={`w-4 h-4 text-[#C9A227] ${isRtl ? 'scale-x-[-1]' : ''}`} />
+              <PhoneCall className={`w-4 h-4 text-gold ${isRtl ? 'scale-x-[-1]' : ''}`} />
               <span>{t('nav.quoteCta')}</span>
             </NavLink>
           </div>
@@ -84,7 +84,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl text-[#0F5132] hover:bg-[#EAE2D2] transition-colors focus:outline-none"
+              className="p-2 rounded-xl text-emerald-deep hover:bg-[#EAE2D2] transition-colors focus:outline-none"
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
             >
@@ -96,7 +96,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-[#FAF7F2] border-b border-[#E8E0D2] shadow-xl animate-in slide-in-from-top duration-200">
+        <div className="lg:hidden bg-cream border-b border-cream-border shadow-xl animate-in slide-in-from-top duration-200">
           <div className="px-4 pt-3 pb-6 space-y-2">
             {navLinks.map((link) => (
               <NavLink
@@ -106,7 +106,7 @@ export const Navbar: React.FC = () => {
                 className={({ isActive }) =>
                   `block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#0F5132] text-white font-bold shadow-xs'
+                      ? 'bg-emerald-deep text-white font-bold shadow-xs'
                       : 'text-[#2C332E] hover:bg-[#ECE4D6]'
                   }`
                 }
@@ -118,9 +118,9 @@ export const Navbar: React.FC = () => {
             <div className="pt-3">
               <NavLink
                 to="/contact"
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#0F5132] text-white font-semibold text-center shadow-md"
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-deep text-white font-semibold text-center shadow-md"
               >
-                <PhoneCall className={`w-4 h-4 text-[#C9A227] ${isRtl ? 'scale-x-[-1]' : ''}`} />
+                <PhoneCall className={`w-4 h-4 text-gold ${isRtl ? 'scale-x-[-1]' : ''}`} />
                 <span>{t('nav.quoteCta')}</span>
               </NavLink>
             </div>

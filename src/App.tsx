@@ -9,6 +9,7 @@ import { Packages } from './pages/Packages';
 import { PackageDetails } from './pages/PackageDetails';
 import { Hotels } from './pages/Hotels';
 import { Contact } from './pages/Contact';
+import { NotFound } from './pages/NotFound';
 
 // Scroll to top on route navigation
 const ScrollToTop: React.FC = () => {
@@ -26,7 +27,7 @@ export default function App() {
     <LanguageProvider>
       <BrowserRouter>
         <ScrollToTop />
-        <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#1F2421] selection:bg-[#C9A227]/25 selection:text-[#0F5132]">
+        <div className="min-h-screen flex flex-col font-sans text-[#1F2421] selection:bg-gold/30">
           {/* Sticky Navigation */}
           <Navbar />
 
@@ -34,12 +35,12 @@ export default function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
               <Route path="/packages" element={<Packages />} />
               <Route path="/packages/:id" element={<PackageDetails />} />
               <Route path="/hotels" element={<Hotels />} />
+              <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="*" element={<Home />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
 

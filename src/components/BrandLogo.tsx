@@ -16,9 +16,9 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
     <Link to="/" className={`inline-flex items-center gap-3 group select-none ${className}`}>
       {/* Brand Icon SVG: Elegant emerald badge with golden celestial compass/minaret arc */}
       <div className="relative flex items-center justify-center shrink-0">
-        <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-[#0F5132] flex items-center justify-center shadow-md group-hover:bg-[#0C4229] transition-colors border border-[#C9A227]/30">
+        <div className="w-10 h-10 md:w-11 md:h-11 rounded-xl bg-emerald-deep flex items-center justify-center shadow-md group-hover:bg-[#0C4229] transition-colors border border-gold/30">
           <svg
-            className="w-6 h-6 text-[#C9A227]"
+            className="w-6 h-6 text-gold"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -42,10 +42,10 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
       {/* Brand Name Typography */}
       <div className="flex flex-col">
         <div className="flex items-baseline tracking-tight">
-          <span className="font-serif font-bold text-2xl md:text-[26px] text-[#0F5132] leading-none">
+          <span className="font-serif font-bold text-2xl md:text-[26px] text-emerald-deep leading-none">
             Omra
           </span>
-          <span className="font-serif font-bold text-2xl md:text-[26px] text-[#C9A227] leading-none">
+          <span className="font-serif font-bold text-2xl md:text-[26px] text-gold leading-none">
             Plan
           </span>
         </div>

@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from '../context/LanguageContext';
 import { MessageCircle, Shield, User, Phone, MapPin, Calendar, Users, Home, AlertCircle, CheckCircle2 } from 'lucide-react';
-
-/**
- * =========================================================================
- * AGENCY WHATSAPP CONFIGURATION
- * Edit the number below (in international format without '+' or spaces).
- * Example for Morocco: '212600000000', for France: '33700900000'.
- * =========================================================================
- */
-export const AGENCY_PHONE_NUMBER = '33700900000';
+import { AGENCY_PHONE_NUMBER } from '../config';
 
 interface WhatsAppFormProps {
   initialPackageName?: string;
@@ -43,18 +35,17 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
+    // Only set initial notes on mount if a package is provided
     if (initialPackageName) {
-      setNotes((prev) =>
-        prev
-          ? prev
-          : language === 'ar'
+      setNotes(
+        language === 'ar'
           ? `طلب خاص ببرنامج: ${initialPackageName}`
           : language === 'en'
           ? `Inquiry specifically for: ${initialPackageName}`
           : `Demande spécifique pour le forfait : ${initialPackageName}`
       );
     }
-  }, [initialPackageName, language]);
+  }, [initialPackageName]); // Removed 'language' from dependency array to prevent overwriting user edits
 
   useEffect(() => {
     if (initialOfferType) {
@@ -91,10 +82,10 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
     message += `• ${t('form.offerType')} : ${offerType}\n`;
     message += `• ${t('form.fullName')} : ${fullName.trim()}\n`;
     message += `• ${t('form.phone')} : ${phone.trim()}\n`;
-    message += `• ${t('form.travelers')} : ${travelers} pèlerin(s)\n`;
+    message += `• ${t('form.travelers')} : ${travelers} ${t('form.pilgrimsLabel')}\n`;
     message += `• ${t('form.room')} : ${room}\n`;
     message += `• ${t('form.city')} : ${city}\n`;
-    message += `• ${t('form.month')} : ${month.trim() || (language === 'ar' ? 'يُحدد لاحقاً' : 'À définir ensemble')}\n`;
+    message += `• ${t('form.month')} : ${month.trim() || t('form.monthFallback')}\n`;
 
     if (notes.trim()) {
       message += `• ${t('form.notes')} : ${notes.trim()}\n`;
@@ -112,20 +103,20 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
   return (
     <div
       id={id}
-      className={`bg-white rounded-2xl md:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-[#E8E0D2] relative overflow-hidden ${className}`}
+      className={`bg-white rounded-2xl md:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl border border-cream-border relative overflow-hidden ${className}`}
     >
       {/* Decorative ambient glowing accents */}
-      <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-[#C9A227]/10 blur-3xl pointer-events-none" />
-      <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-[#0F5132]/10 blur-3xl pointer-events-none" />
+      <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
+      <div className="absolute -left-20 -bottom-20 w-64 h-64 rounded-full bg-emerald-deep/10 blur-3xl pointer-events-none" />
 
       <div className="relative z-10">
         {/* Header Badge & Title */}
         <div className="text-center max-w-2xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EAF4EE] text-[#0F5132] text-xs font-bold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EAF4EE] text-emerald-deep text-xs font-bold uppercase tracking-wider mb-3">
             <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
             {t('form.badge')}
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0F5132] leading-tight">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-deep leading-tight">
             {t('form.title')}
           </h2>
           <p className="text-sm sm:text-base text-[#5A635E] mt-2">
@@ -133,8 +124,8 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
           </p>
 
           {initialPackageName && (
-            <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FBF4E2] text-[#B48F1E] border border-[#DEC786]/60 text-xs sm:text-sm font-semibold">
-              <CheckCircle2 className="w-4 h-4 text-[#C9A227]" />
+            <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-light text-gold-hover border border-gold-border/60 text-xs sm:text-sm font-semibold">
+              <CheckCircle2 className="w-4 h-4 text-gold" />
               <span>
                 {t('form.packageTitle')} <strong>{initialPackageName}</strong>
               </span>
@@ -162,8 +153,8 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                     onClick={() => setOfferType(item.val)}
                     className={`py-3 px-2 rounded-xl text-xs sm:text-sm font-semibold text-center transition-all cursor-pointer border ${
                       selected
-                        ? 'bg-[#0F5132] text-white border-[#0F5132] shadow-sm font-bold scale-102'
-                        : 'bg-[#FAF7F2] text-[#444D47] border-[#E8E0D2] hover:bg-[#F2ECE1]'
+                        ? 'bg-emerald-deep text-white border-emerald-deep shadow-sm font-bold scale-102'
+                        : 'bg-cream text-[#444D47] border-cream-border hover:bg-[#F2ECE1]'
                     }`}
                   >
                     {item.label}
@@ -188,10 +179,10 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                   onChange={(e) => setFullName(e.target.value)}
                   onBlur={() => setTouched((p) => ({ ...p, fullName: true }))}
                   placeholder={t('form.fullNamePlaceholder')}
-                  className={`w-full pl-11 pr-4 py-3 rounded-xl bg-[#FAF7F2] border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:outline-none transition-colors ${
+                  className={`w-full pl-11 pr-4 py-3 rounded-xl bg-cream border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:outline-none transition-colors ${
                     touched.fullName && errors.fullName
                       ? 'border-red-500 ring-1 ring-red-400'
-                      : 'border-[#E8E0D2] focus:border-[#0F5132]'
+                      : 'border-cream-border focus:border-emerald-deep'
                   }`}
                   required
                 />
@@ -217,10 +208,10 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                   onChange={(e) => setPhone(e.target.value)}
                   onBlur={() => setTouched((p) => ({ ...p, phone: true }))}
                   placeholder={t('form.phonePlaceholder')}
-                  className={`w-full pl-11 pr-4 py-3 rounded-xl bg-[#FAF7F2] border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:outline-none transition-colors ${
+                  className={`w-full pl-11 pr-4 py-3 rounded-xl bg-cream border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:outline-none transition-colors ${
                     touched.phone && errors.phone
                       ? 'border-red-500 ring-1 ring-red-400'
-                      : 'border-[#E8E0D2] focus:border-[#0F5132]'
+                      : 'border-cream-border focus:border-emerald-deep'
                   }`}
                   required
                 />
@@ -246,7 +237,7 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                   id="travelers"
                   value={travelers}
                   onChange={(e) => setTravelers(e.target.value)}
-                  className="w-full pl-10 pr-8 py-3 rounded-xl bg-[#FAF7F2] border border-[#E8E0D2] text-sm text-[#1F2421] focus:bg-white focus:border-[#0F5132] focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-8 py-3 rounded-xl bg-cream border border-cream-border text-sm text-[#1F2421] focus:bg-white focus:border-emerald-deep focus:outline-none transition-colors"
                 >
                   <option value="1">{t('form.travelers1')}</option>
                   <option value="2">{t('form.travelers2')}</option>
@@ -267,7 +258,7 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                   id="room"
                   value={room}
                   onChange={(e) => setRoom(e.target.value)}
-                  className="w-full pl-10 pr-8 py-3 rounded-xl bg-[#FAF7F2] border border-[#E8E0D2] text-sm text-[#1F2421] focus:bg-white focus:border-[#0F5132] focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-8 py-3 rounded-xl bg-cream border border-cream-border text-sm text-[#1F2421] focus:bg-white focus:border-emerald-deep focus:outline-none transition-colors"
                 >
                   <option value="Double">{t('form.roomDouble')}</option>
                   <option value="Triple">{t('form.roomTriple')}</option>
@@ -289,7 +280,7 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
                   placeholder={t('form.cityPlaceholder')}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#FAF7F2] border border-[#E8E0D2] text-sm text-[#1F2421] focus:bg-white focus:border-[#0F5132] focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-cream border border-cream-border text-sm text-[#1F2421] focus:bg-white focus:border-emerald-deep focus:outline-none transition-colors"
                 />
               </div>
             </div>
@@ -308,7 +299,7 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
                 placeholder={t('form.monthPlaceholder')}
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#FAF7F2] border border-[#E8E0D2] text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:border-[#0F5132] focus:outline-none transition-colors"
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-cream border border-cream-border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:border-emerald-deep focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -324,14 +315,14 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={t('form.notesPlaceholder')}
-              className="w-full px-4 py-3 rounded-xl bg-[#FAF7F2] border border-[#E8E0D2] text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:border-[#0F5132] focus:outline-none transition-colors resize-none"
+              className="w-full px-4 py-3 rounded-xl bg-cream border border-cream-border text-sm text-[#1F2421] placeholder-[#88928B]/60 focus:bg-white focus:border-emerald-deep focus:outline-none transition-colors resize-none"
             />
           </div>
 
           {/* Action Row */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xs text-[#6B756F]">
-              <Shield className="w-4 h-4 text-[#0F5132] shrink-0" />
+              <Shield className="w-4 h-4 text-emerald-deep shrink-0" />
               <span>{t('form.privacy')}</span>
             </div>
 
@@ -345,8 +336,8 @@ export const WhatsAppForm: React.FC<WhatsAppFormProps> = ({
           </div>
 
           {isSubmitted && (
-            <div className="p-3 bg-[#EAF4EE] border border-[#0F5132]/20 rounded-xl text-center text-xs text-[#0F5132] font-semibold animate-in fade-in duration-300">
-              ✓ WhatsApp ouvert avec votre demande personnalisée !
+            <div className="p-3 bg-[#EAF4EE] border border-emerald-deep/20 rounded-xl text-center text-xs text-emerald-deep font-semibold animate-in fade-in duration-300">
+              {t('form.successMessage')}
             </div>
           )}
         </form>
